@@ -1,6 +1,11 @@
+import { Navbar } from "./components/Navbar"
+
 function App() {
   return (
-    <h1 className="text-3xl text-primary">Hello World!!!</h1>
+    <div>
+      <Navbar></Navbar>
+      <h1 className="text-3xl text-primary">Hello World!!!</h1>
+    </div>
   )
 }
 
