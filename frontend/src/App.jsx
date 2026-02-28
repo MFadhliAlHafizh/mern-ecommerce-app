@@ -3,13 +3,18 @@ import { Navbar } from "./components/Navbar"
 import { Home } from "./pages/Home"
 import { Toaster } from "react-hot-toast"
 import { Footer } from "./components/Footer";
+import { useContext } from "react";
+import { AppContext } from "./context/AppContext";
+import { Login } from "./components/Login";
 
 function App() {
   const isSellerPath = useLocation().pathname.includes("seller");
+  const {showUserLogin} = useContext(AppContext);
 
   return (
     <div>
-      {isSellerPath ? "" : <Navbar></Navbar>}
+      {isSellerPath ? null : <Navbar />}
+      {showUserLogin ? <Login /> : null}
       
       <Toaster />
       
