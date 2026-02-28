@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
 import { Login } from "./components/Login";
+import { AllProducts } from "./pages/AllProducts";
 
 function App() {
   const isSellerPath = useLocation().pathname.includes("seller");
@@ -18,9 +19,10 @@ function App() {
       
       <Toaster />
       
-      <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+      <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32 mt-24 sm:mt-28"}`}>
         <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/products" element={<AllProducts />}></Route>
         </Routes>
       </div>
       {!isSellerPath && <Footer />}
