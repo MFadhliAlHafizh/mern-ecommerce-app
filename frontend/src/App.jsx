@@ -15,7 +15,7 @@ function App() {
   const {showUserLogin} = useContext(AppContext);
 
   return (
-    <div>
+    <div className="relative">
       {isSellerPath ? null : <Navbar />}
       {showUserLogin ? <Login /> : null}
       
