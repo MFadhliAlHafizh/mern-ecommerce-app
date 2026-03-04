@@ -5,7 +5,7 @@ import { AppContext } from "../context/AppContext";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { user, setUser, setShowUserLogin, searchQuery, setSearchQuery, navigate } = useContext(AppContext);
+  const { user, setUser, setShowUserLogin, searchQuery, setSearchQuery, getCartCount, navigate } = useContext(AppContext);
 
   const handleLogout = async () => {
     setUser(null);
@@ -39,14 +39,14 @@ export const Navbar = () => {
           <img src={assets.search_icon} alt="Search" className="w-4 h-4" />
         </div>
 
-        <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
+        <div onClick={() => {navigate("/cart"); scrollTo(0,0)}} className="relative cursor-pointer">
           <img
             src={assets.nav_cart_icon}
             alt="Cart"
             className="w-6 opacity-80"
           />
           <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full">
-            3
+            {getCartCount()}
           </button>
         </div>
 
@@ -65,13 +65,25 @@ export const Navbar = () => {
         )}
       </div>
 
-      <button
-        onClick={() => (open ? setOpen(false) : setOpen(true))}
-        aria-label="Menu"
-        className="sm:hidden cursor-pointer"
-      >
-        <img src={assets.menu_icon} alt="Menu" />
-      </button>
+      <div className="flex items-center gap-6 sm:hidden">
+        <div onClick={() => {navigate("/cart"); scrollTo(0,0)}} className="relative cursor-pointer">
+          <img
+            src={assets.nav_cart_icon}
+            alt="Cart"
+            className="w-6 opacity-80"
+          />
+          <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full">
+            {getCartCount()}
+          </button>
+        </div>
+        <button
+          onClick={() => (open ? setOpen(false) : setOpen(true))}
+          aria-label="Menu"
+          className="cursor-pointer"
+        >
+          <img src={assets.menu_icon} alt="Menu" />
+        </button>
+      </div>
 
       {/* Mobile Menu */}
       <div
