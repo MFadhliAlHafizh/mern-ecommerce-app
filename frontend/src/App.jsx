@@ -13,6 +13,10 @@ import { Cart } from "./pages/Cart";
 import { AddAddress } from "./pages/AddAddress";
 import { MyOrders } from "./pages/MyOrders";
 import { LoginSeller } from "./components/seller/LoginSeller";
+import { SellerLayout } from "./pages/seller/SellerLayout";
+import { AddProduct } from "./pages/seller/AddProduct";
+import { ProductList } from "./pages/seller/ProductList";
+import { Orders } from "./pages/seller/Orders";
 
 function App() {
   const isSellerPath = useLocation().pathname.includes("seller");
@@ -34,7 +38,11 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/add-address" element={<AddAddress />}></Route>
           <Route path="/my-orders" element={<MyOrders />}></Route>
-          <Route path="/seller" element={isSeller ? null : <LoginSeller />}></Route>
+          <Route path="/seller" element={isSeller ? <SellerLayout /> : <LoginSeller />}>
+            <Route index element={<AddProduct />} />
+            <Route path="product-list" element={<ProductList />} />
+            <Route path="orders" element={<Orders />} />
+          </Route>
         </Routes>
       </div>
       {!isSellerPath && <Footer />}
