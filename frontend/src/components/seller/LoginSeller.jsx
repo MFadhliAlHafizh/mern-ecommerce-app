@@ -6,7 +6,7 @@ export const LoginSeller = () => {
   const [password, setPassword] = useState("");
   const { isSeller, setIsSeller, navigate } = useContext(AppContext);
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     setIsSeller(true);
   };
