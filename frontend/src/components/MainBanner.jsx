@@ -13,7 +13,7 @@ export const MainBanner = () => {
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center md:text-start leading-tight lg:leading-15 max-w-72 md:max-w-80 lg:max-w-105">Freshness You Can Trust, Saving You Will Love!</h1>
             </div>
             <div className="flex items-center mt-6 font-medium">
-                <Link to="/products" className="group flex items-center gap-2 px-7 md:px-9 py-3 rounded bg-primary hover:bg-primary-dulll text-white cursor-pointer transition">
+                <Link to="/products" className="group flex items-center gap-2 px-7 md:px-9 py-3 rounded bg-primary hover:bg-primary-dull text-white cursor-pointer transition">
                     Shop Now
                     <img src={assets.white_arrow_icon} alt="White Arrow" className="md:hidden transition group-focus:translate-x-1" />
                 </Link>

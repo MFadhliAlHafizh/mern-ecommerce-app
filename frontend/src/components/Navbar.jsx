@@ -51,7 +51,7 @@ export const Navbar = () => {
         </div>
 
         {!user ? (
-          <button onClick={() => setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dulll transition text-white rounded-full">
+          <button onClick={() => setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
             Login
           </button>
         ) : (
@@ -109,12 +109,12 @@ export const Navbar = () => {
               setOpen(false);
               setShowUserLogin(true);
             }}
-            className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dulll transition text-white rounded-full text-sm"
+            className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm"
           >
             Login
           </button>
         ) : (
-          <button onClick={handleLogout} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dulll transition text-white rounded-full text-sm">
+          <button onClick={handleLogout} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">
             Logout
           </button>
         )}

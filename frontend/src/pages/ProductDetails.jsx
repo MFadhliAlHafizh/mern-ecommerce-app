@@ -106,7 +106,7 @@ export const ProductDetails = () => {
                   addToCart(product._id);
                   navigate("/cart");
                 }}
-                className="w-full py-3.5 cursor-pointer font-medium bg-primary text-white hover:bg-primary-dulll transition"
+                className="w-full py-3.5 cursor-pointer font-medium bg-primary text-white hover:bg-primary-dull transition"
               >
                 Buy now
               </button>

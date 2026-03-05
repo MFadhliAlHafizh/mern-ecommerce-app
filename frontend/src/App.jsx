@@ -12,10 +12,11 @@ import { ProductDetails } from "./pages/ProductDetails";
 import { Cart } from "./pages/Cart";
 import { AddAddress } from "./pages/AddAddress";
 import { MyOrders } from "./pages/MyOrders";
+import { LoginSeller } from "./components/seller/LoginSeller";
 
 function App() {
   const isSellerPath = useLocation().pathname.includes("seller");
-  const {showUserLogin} = useContext(AppContext);
+  const {showUserLogin, isSeller} = useContext(AppContext);
 
   return (
     <div className="relative">
@@ -33,6 +34,7 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/add-address" element={<AddAddress />}></Route>
           <Route path="/my-orders" element={<MyOrders />}></Route>
+          <Route path="/seller" element={isSeller ? null : <LoginSeller />}></Route>
         </Routes>
       </div>
       {!isSellerPath && <Footer />}

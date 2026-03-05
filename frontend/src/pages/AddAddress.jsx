@@ -121,7 +121,7 @@ export const AddAddress = () => {
             />
             <button
               type="submit"
-              className="w-full mt-6 bg-primary hover:bg-primary-dulll py-3 text-white uppercase cursor-pointer transition"
+              className="w-full mt-6 bg-primary hover:bg-primary-dull py-3 text-white uppercase cursor-pointer transition"
             >
               Save Address
             </button>
