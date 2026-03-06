@@ -34,7 +34,7 @@ export const SellerLayout = () => {
         </div>
       </div>
       <div className="flex">
-        <div className="md:w-64 w-16 h-137.5 text-base border-r border-gray-300 flex flex-col transition-all duration-300">
+        <div className="md:w-64 w-16 h-[95vh] text-base border-r border-gray-300 flex flex-col">
           {sidebarLinks.map((item) => (
             <NavLink
               to={item.path}
