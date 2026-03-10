@@ -10,8 +10,11 @@ const authUser = (req, res, next) => {
   try {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = { id: tokenDecode.id };
-
+    if (tokenDecode) {
+      req.userId = tokenDecode.id;
+    } else {
+      return res.json({ success: false, message: "Not Authorized" });
+    }
     next();
   } catch (error) {
     console.log(error.message);

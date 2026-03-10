@@ -80,7 +80,8 @@ export const login = async (req, res) => {
 // Check Auth: /api/user/is-auth
 export const isAuth = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.user.id).select("-password");
+    const userId = req.userId;
+    const user = await UserModel.findById(userId).select("-password");
     return res.json({ success: true, user });
   } catch (error) {
     console.log(error.message);
