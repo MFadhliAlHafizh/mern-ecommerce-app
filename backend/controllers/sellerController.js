@@ -25,7 +25,7 @@ export const sellerLogin = async (req, res) => {
   }
 };
 
-// Check Seller Auth: /api/seller/is-auth
+// Check Seller is Auth: /api/seller/is-auth
 export const isSellerAuth = async (req, res) => {
   try {
     return res.json({ success: true });
@@ -36,7 +36,7 @@ export const isSellerAuth = async (req, res) => {
 };
 
 // Logout: /api/seller/logout
-export const logout = async (req, res) => {
+export const sellerLogout = async (req, res) => {
   try {
     res.clearCookie("sellerToken", {
       httpOnly: true,
