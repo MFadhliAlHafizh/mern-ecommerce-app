@@ -45,7 +45,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.json({ success: false, message: "Email, and password are required" });
+      return res.json({ success: false, message: "Email and password are required" });
     }
 
     const user = await UserModel.findOne({ email });
@@ -73,6 +73,32 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    return res.json({ success: false, message: error.message })
+    return res.json({ success: false, message: error.message });
   }
-}
+};
+
+// Check Auth: /api/user/is-auth
+export const isAuth = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.id).select("-password");
+    return res.json({ success: true, user });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+// Logout: /api/user/logout
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
+    return res.json({ success: true, message: "Logged Out" });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
