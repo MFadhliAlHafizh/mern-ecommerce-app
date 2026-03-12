@@ -34,7 +34,7 @@ export const placeOrderCod = async (req, res) => {
 };
 
 // Get Orders by User Id: /api/order/user
-export const getUsersOrders = async () => {
+export const getUsersOrders = async (req, res) => {
   try {
     const { userId } = req.body;
     const orders = await OrderModel.find({
@@ -51,7 +51,7 @@ export const getUsersOrders = async () => {
 };
 
 // Get All Orders (For Seller / admin): /api/order/seller
-export const getAllOrders = async () => {
+export const getAllOrders = async (req, res) => {
   try {
     const orders = await OrderModel.find({
       $or: [{ paymentType: "COD" }, { isPaid: true }],
