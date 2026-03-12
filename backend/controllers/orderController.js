@@ -1,0 +1,66 @@
+import OrderModel from "../models/orderModel.js";
+import ProductModel from "../models/ProductModel.js";
+
+// Place Order COD: /api/order/cod
+export const placeOrderCod = async (req, res) => {
+  try {
+    const { userId, items, address } = req.body;
+    if (!address || items.length === 0) {
+      return res.json({ success: false, message: "Invalid data" });
+    }
+
+    // Calculate Amount Using Items
+    let amount = await items.reduce(async (acc, item) => {
+      const product = await ProductModel.findById(item.product);
+      return (await acc) + product.offerPrice * item.quantity;
+    }, 0);
+
+    // Add Tax Charge (2%)
+    amount += Math.floor(amount * 0.02);
+
+    await OrderModel.create({
+      userId,
+      items,
+      amount,
+      address,
+      paymentType: "COD",
+    });
+
+    return res.json({ success: true, message: "Order Placed Successfully" });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+// Get Orders by User Id: /api/order/user
+export const getUsersOrders = async () => {
+  try {
+    const { userId } = req.body;
+    const orders = await OrderModel.find({
+      userId,
+      $or: [{ paymentType: "COD" }, { isPaid: true }],
+    })
+      .populate("items.product address")
+      .sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+// Get All Orders (For Seller / admin): /api/order/seller
+export const getAllOrders = async () => {
+  try {
+    const orders = await OrderModel.find({
+      $or: [{ paymentType: "COD" }, { isPaid: true }],
+    })
+      .populate("items.product address")
+      .sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
