@@ -21,7 +21,7 @@ export const AppContextProvider = ({ children }) => {
   const fetchIsSeller = async () => {
     try {
       const { data } = await axios.get("/api/seller/is-auth");
-      
+
       if (data.success) {
         setIsSeller(true);
       } else {
@@ -31,13 +31,25 @@ export const AppContextProvider = ({ children }) => {
       console.log(error);
       setIsSeller(false);
     }
-  }
+  };
+
+  const fetchUser = async () => {
+    try {
+      const { data } = await axios.get("/api/user/is-auth");
+      if (data.success) {
+        setUser(data.user);
+        setCartItems(data.user.cartItems);
+      }
+    } catch (error) {
+      setUser(null);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get("/api/product/list");
 
-      if(data.success) {
+      if (data.success) {
         setProducts(data.products);
       } else {
         toast.error(data.message);
@@ -48,6 +60,7 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    fetchUser();
     fetchIsSeller();
     fetchProducts();
   }, []);
@@ -89,22 +102,22 @@ export const AppContextProvider = ({ children }) => {
 
   const getCartCount = () => {
     let totalCount = 0;
-    for(const item in cartItems) {
+    for (const item in cartItems) {
       totalCount += cartItems[item];
     }
     return totalCount;
-  }
+  };
 
   const getCartAmount = () => {
     let totalAmount = 0;
-    for(const items in cartItems) {
+    for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
       if (cartItems[items] > 0) {
-        totalAmount += itemInfo.offerPrice * cartItems[items]
+        totalAmount += itemInfo.offerPrice * cartItems[items];
       }
     }
     return Math.floor(totalAmount * 100) / 100;
-  }
+  };
 
   const value = {
     navigate,
@@ -126,6 +139,7 @@ export const AppContextProvider = ({ children }) => {
     getCartAmount,
     axios,
     fetchProducts,
+    fetchUser,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
