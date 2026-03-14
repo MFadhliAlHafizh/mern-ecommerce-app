@@ -65,6 +65,24 @@ export const AppContextProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const updateCart = async () => {
+      try {
+        const { data } = await axios.post("/api/cart/update", { cartItems });
+
+        if (!data.success) {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+
+    if (user) {
+      updateCart();
+    }
+  }, [cartItems, user]);
+
   const addToCart = (itemId) => {
     let cartData = structuredClone(cartItems);
 
