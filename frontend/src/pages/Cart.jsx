@@ -4,7 +4,7 @@ import { assets } from "../assets/assets";
 import toast from "react-hot-toast";
 
 export const Cart = () => {
-  const { products, cartItems, currency, removeFromCart, updateCartItem, getCartCount, getCartAmount, navigate, axios, user } = useContext(AppContext);
+  const { products, cartItems, setCartItems, currency, removeFromCart, updateCartItem, getCartCount, getCartAmount, navigate, axios, user } = useContext(AppContext);
 
   const [cartArray, setCartArray] = useState([]);
   const [addresses, setAddresses] = useState([]);
@@ -55,7 +55,34 @@ export const Cart = () => {
     }
   }, [user, axios]);
 
-  const placeOrder = async () => {};
+  const placeOrder = async () => {
+    try {
+      if (!selectedAddresses) {
+        toast.error("Please select an address!");
+      }
+
+      if (paymentOption === "COD") {
+        const { data } = await axios.post("/api/order/cod", {
+          userId: user._id,
+          items: cartArray.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          address: selectedAddresses._id,
+        });
+
+        if (data.success) {
+          toast.success(data.message);
+          setCartItems({});
+          navigate("/my-orders");
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const subTotal = getCartAmount();
   const tax = (subTotal * 2) / 100;

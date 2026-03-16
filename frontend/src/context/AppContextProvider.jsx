@@ -149,6 +149,7 @@ export const AppContextProvider = ({ children }) => {
     setShowUserLogin,
     products,
     cartItems,
+    setCartItems,
     currency,
     addToCart,
     updateCartItem,
