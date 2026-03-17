@@ -78,6 +78,8 @@ export const Cart = () => {
         } else {
           toast.error(data.message);
         }
+      } else {
+        toast.error("Sorry, this payment method is not currently available.");
       }
     } catch (error) {
       toast.error(error.message);
