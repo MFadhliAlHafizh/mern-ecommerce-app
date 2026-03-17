@@ -78,7 +78,7 @@ export const AppContextProvider = ({ children }) => {
       }
     };
 
-    if (user) {
+    if (user && Object.keys(cartItems).length > 0) {
       updateCart();
     }
   }, [cartItems, user]);

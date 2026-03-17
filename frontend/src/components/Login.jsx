@@ -8,7 +8,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { setShowUserLogin, setUser, axios, navigate } = useContext(AppContext);
+  const { setShowUserLogin, axios, navigate, fetchUser } = useContext(AppContext);
 
   const onSubmitHandler = async (e) => {
     try {
@@ -17,8 +17,8 @@ export const Login = () => {
       const { data } = await axios.post(`/api/user/${state}`, { name, email, password });
 
       if (data.success) {
+        await fetchUser();
         navigate("/");
-        setUser(data.user);
         setShowUserLogin(false);
       } else {
         toast.error(data.message);

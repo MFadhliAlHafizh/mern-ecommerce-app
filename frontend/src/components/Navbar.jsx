@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { user, setUser, setShowUserLogin, searchQuery, setSearchQuery, getCartCount, navigate, axios } = useContext(AppContext);
+  const { user, setUser, setCartItems, setShowUserLogin, searchQuery, setSearchQuery, getCartCount, navigate, axios } = useContext(AppContext);
 
   const navbarLinks = [
     { name: "Home", path: "/" },
@@ -21,12 +21,14 @@ export const Navbar = () => {
       if (data.success) {
         toast.success(data.message);
         setUser(null);
+        setCartItems({});
         navigate("/");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
+      setCartItems({});
     }
   };
 
